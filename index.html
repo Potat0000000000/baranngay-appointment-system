@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barangay Health Center Appointment System - Base Camp, Maramag</title>
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-light">
+
+    <div class="container py-5">
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <h1 class="fw-bold text-primary">Barangay Health Center</h1>
+            <p class="text-muted">Base Camp, Maramag, Bukidnon - Online Appointment Portal</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <h4 class="card-title mb-4 text-center">Book a Health Appointment</h4>
+                        
+                        <form id="appointmentForm">
+                            <!-- Full Name -->
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="fullName" required placeholder="e.g., Juan Dela Cruz">
+                            </div>
+
+                            <!-- Contact Number -->
+                            <div class="mb-3">
+                                <label for="contactNumber" class="form-label">Contact Number</label>
+                                <input type="tel" class="form-control" id="contactNumber" required placeholder="09123456789">
+                            </div>
+
+                            <!-- Purok / Location -->
+                            <div class="mb-3">
+                                <label for="purok" class="form-label">Purok / Sitio</label>
+                                <select class="form-select" id="purok" required>
+                                    <option value="" selected disabled>Select your Purok</option>
+                                    <option value="Purok 1">Purok 1</option>
+                                    <option value="Purok 2">Purok 2</option>
+                                    <option value="Purok 3">Purok 3</option>
+                                    <option value="Purok 4">Purok 4</option>
+                                    <option value="Base Camp Proper">Base Camp Proper</option>
+                                </select>
+                            </div>
+
+                            <!-- Service Type -->
+                            <div class="mb-3">
+                                <label for="serviceType" class="form-label">Health Service</label>
+                                <select class="form-select" id="serviceType" required>
+                                    <option value="" selected disabled>Select consultation type</option>
+                                    <option value="General Consultation">General Consultation</option>
+                                    <option value="Prenatal Check-up">Prenatal Check-up</option>
+                                    <option value="Immunization / Vaccination">Immunization / Vaccination</option>
+                                    <option value="Tooth Extraction">Tooth Extraction</option>
+                                </select>
+                            </div>
+
+                            <!-- Appointment Date -->
+                            <div class="mb-4">
+                                <label for="appointmentDate" class="form-label">Preferred Date</label>
+                                <input type="date" class="form-control" id="appointmentDate" required>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-primary w-100 py-2">Submit Appointment</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
