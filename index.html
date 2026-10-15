@@ -3,94 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barangay Health Center Appointment System - Base Camp, Maramag</title>
-    <!-- Bootstrap 5 CSS CDN -->
+    <title>Book an Appointment - Base Camp Health Center, Maramag</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-light">
+<body>
 
-    <div class="container py-5">
-        <!-- Header -->
-        <div class="text-center mb-5">
-            <h1 class="fw-bold text-primary">Barangay Health Center</h1>
-            <p class="text-muted">Base Camp, Maramag, Bukidnon - Online Appointment Portal</p>
+    <!-- Top bar -->
+    <header class="site-bar">
+        <div class="container py-3 d-flex align-items-center justify-content-between">
+            <a href="index.html" class="brand">
+                <span class="brand-mark"><i class="bi bi-heart-pulse-fill"></i></span>
+                <span>
+                    <div class="brand-name">Base Camp Health Center</div>
+                    <div class="brand-sub">Maramag, Bukidnon</div>
+                </span>
+            </a>
+            <a href="admin.html" class="btn btn-outline-primary btn-sm">
+                <i class="bi bi-person-badge me-1"></i>Staff login
+            </a>
         </div>
+    </header>
 
-        <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6">
-                <div class="card shadow-sm border-0">
-                    <div class="card-body p-4">
-                        <h4 class="card-title mb-4 text-center">Book a Health Appointment</h4>
-                        
-                        <form id="appointmentForm">
-                            <!-- Full Name -->
-                            <div class="mb-3">
-                                <label for="fullName" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="fullName" required placeholder="e.g., Juan Dela Cruz">
+    <main class="container py-5">
+        <div class="row g-5 align-items-start">
+
+            <!-- Left: intro and steps -->
+            <section class="col-lg-5 intro">
+                <h1>Book your health center visit online</h1>
+                <p class="lead mt-3">Choose a service and a date. The health center staff will review your request and confirm it.</p>
+
+                <ol class="steps">
+                    <li>
+                        <span class="step-num">1</span>
+                        <div>
+                            <h3>Fill out the form</h3>
+                            <p>Enter your details, pick a service and choose the date you prefer.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">2</span>
+                        <div>
+                            <h3>Wait for confirmation</h3>
+                            <p>Staff will review your request. Keep your phone nearby in case they contact you.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">3</span>
+                        <div>
+                            <h3>Visit the health center</h3>
+                            <p>Go to the Base Camp Health Center on your approved date.</p>
+                        </div>
+                    </li>
+                </ol>
+
+                <div class="location-note">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    <div>
+                        <strong>Barangay Base Camp Health Center</strong><br>
+                        Base Camp, Maramag, Bukidnon
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right: form -->
+            <section class="col-lg-7">
+                <div class="form-panel">
+                    <div class="form-panel-head">
+                        <h2>Request an appointment</h2>
+                        <p>All fields are required.</p>
+                    </div>
+
+                    <div class="form-panel-body">
+                        <div id="formAlert" class="alert alert-danger d-none" role="alert"></div>
+
+                        <form id="appointmentForm" novalidate>
+
+                            <!-- Personal information -->
+                            <div class="form-section">
+                                <h3 class="form-section-title"><i class="bi bi-person-fill"></i>Your information</h3>
+
+                                <div class="mb-3">
+                                    <label for="fullName" class="form-label">Full name</label>
+                                    <input type="text" class="form-control" id="fullName" autocomplete="name" required placeholder="e.g., Juan Dela Cruz">
+                                    <div class="invalid-feedback">Please enter your full name.</div>
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-6">
+                                        <label for="contactNumber" class="form-label">Mobile number</label>
+                                        <input type="tel" class="form-control" id="contactNumber" autocomplete="tel" inputmode="numeric" required maxlength="11" pattern="09[0-9]{9}" placeholder="09123456789">
+                                        <div class="invalid-feedback">Enter an 11-digit number starting with 09.</div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="email" class="form-label">Email address</label>
+                                        <input type="email" class="form-control" id="email" autocomplete="email" required placeholder="name@gmail.com">
+                                        <div class="invalid-feedback">Enter a valid email address.</div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="purok" class="form-label">Purok / Sitio</label>
+                                    <select class="form-select" id="purok" required>
+                                        <option value="" selected disabled>Select your purok</option>
+                                        <option value="Purok 1">Purok 1</option>
+                                        <option value="Purok 2">Purok 2</option>
+                                        <option value="Purok 3">Purok 3</option>
+                                        <option value="Purok 4">Purok 4</option>
+                                        <option value="Base Camp Proper">Base Camp Proper</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select your purok.</div>
+                                </div>
                             </div>
 
-                            <!-- Contact Number -->
-                            <div class="mb-3">
-                                <label for="contactNumber" class="form-label">Contact Number</label>
-                                <input type="tel" class="form-control" id="contactNumber" required placeholder="09123456789">
+                            <!-- Service -->
+                            <div class="form-section">
+                                <h3 class="form-section-title"><i class="bi bi-clipboard2-pulse-fill"></i>What service do you need?</h3>
+
+                                <div class="service-grid" role="radiogroup" aria-label="Health service">
+                                    <div class="service-tile">
+                                        <input type="radio" name="serviceType" id="svc1" value="General Consultation" required>
+                                        <label for="svc1">
+                                            <span class="tile-icon"><i class="bi bi-stethoscope"></i></span>
+                                            <span>
+                                                <div class="tile-title">General Consultation</div>
+                                                <div class="tile-desc">Check-up for common concerns</div>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="service-tile">
+                                        <input type="radio" name="serviceType" id="svc2" value="Prenatal Check-up">
+                                        <label for="svc2">
+                                            <span class="tile-icon"><i class="bi bi-heart-fill"></i></span>
+                                            <span>
+                                                <div class="tile-title">Prenatal Check-up</div>
+                                                <div class="tile-desc">Care for expecting mothers</div>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="service-tile">
+                                        <input type="radio" name="serviceType" id="svc3" value="Immunization / Vaccination">
+                                        <label for="svc3">
+                                            <span class="tile-icon"><i class="bi bi-shield-plus"></i></span>
+                                            <span>
+                                                <div class="tile-title">Immunization / Vaccination</div>
+                                                <div class="tile-desc">Vaccines for children and adults</div>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="service-tile">
+                                        <input type="radio" name="serviceType" id="svc4" value="Tooth Extraction">
+                                        <label for="svc4">
+                                            <span class="tile-icon"><i class="bi bi-emoji-smile"></i></span>
+                                            <span>
+                                                <div class="tile-title">Tooth Extraction</div>
+                                                <div class="tile-desc">Dental service</div>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div id="serviceError" class="text-danger small mt-2 d-none">Please choose a service.</div>
                             </div>
 
-                            <div class="mb-3">
-    <label for="email" class="form-label">Email Address</label>
-    <input type="email" class="form-control" id="email" placeholder="e.g., resident@gmail.com" required>
-</div>
-
-                            <!-- Purok / Location -->
-                            <div class="mb-3">
-                                <label for="purok" class="form-label">Purok / Sitio</label>
-                                <select class="form-select" id="purok" required>
-                                    <option value="" selected disabled>Select your Purok</option>
-                                    <option value="Purok 1">Purok 1</option>
-                                    <option value="Purok 2">Purok 2</option>
-                                    <option value="Purok 3">Purok 3</option>
-                                    <option value="Purok 4">Purok 4</option>
-                                    <option value="Base Camp Proper">Base Camp Proper</option>
-                                </select>
-                            </div>
-
-                            <!-- Service Type -->
-                            <div class="mb-3">
-                                <label for="serviceType" class="form-label">Health Service</label>
-                                <select class="form-select" id="serviceType" required>
-                                    <option value="" selected disabled>Select consultation type</option>
-                                    <option value="General Consultation">General Consultation</option>
-                                    <option value="Prenatal Check-up">Prenatal Check-up</option>
-                                    <option value="Immunization / Vaccination">Immunization / Vaccination</option>
-                                    <option value="Tooth Extraction">Tooth Extraction</option>
-                                </select>
-                            </div>
-
-                            <!-- Appointment Date -->
-                            <div class="mb-4">
-                                <label for="appointmentDate" class="form-label">Preferred Date</label>
+                            <!-- Date -->
+                            <div class="form-section">
+                                <h3 class="form-section-title"><i class="bi bi-calendar-event-fill"></i>When would you like to come?</h3>
+                                <label for="appointmentDate" class="form-label">Preferred date</label>
                                 <input type="date" class="form-control" id="appointmentDate" required>
+                                <div class="form-text">Your date is a request. Staff will confirm it.</div>
+                                <div class="invalid-feedback">Please choose today or a later date.</div>
                             </div>
 
-                            <!-- Submit Button -->
-                            <button type="submit" class="btn btn-primary w-100 py-2">Submit Appointment</button>
+                            <button type="submit" class="btn btn-primary btn-lg w-100 mt-4" id="submitBtn">
+                                <i class="bi bi-send-fill me-2"></i>Send appointment request
+                            </button>
                         </form>
                     </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Success modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-body p-4 text-center">
+                    <div class="confirm-icon"><i class="bi bi-check-lg"></i></div>
+                    <h2 class="h4 fw-bold" id="successTitle">Request sent</h2>
+                    <p class="text-muted">Your request is now waiting for staff confirmation.</p>
+                    <dl class="summary-list text-start bg-light rounded-3 p-3 mt-3">
+                        <dt>Name</dt><dd id="sumName"></dd>
+                        <dt>Service</dt><dd id="sumService"></dd>
+                        <dt>Preferred date</dt><dd id="sumDate" class="mb-0"></dd>
+                    </dl>
+                    <button type="button" class="btn btn-primary w-100 mt-3" data-bs-dismiss="modal">Done</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap JS Bundle -->
+    <footer class="site-footer text-center py-4 mt-4">
+        <div class="container">
+            <div class="fw-semibold">Barangay Health Center Record &amp; Appointment System</div>
+            <div>Base Camp, Maramag, Bukidnon &copy; 2026</div>
+        </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
-
-    <!-- Footer -->
-<footer class="text-center py-4 mt-5 text-muted border-top bg-white">
-    <div class="container">
-        <p class="mb-1 fw-medium text-secondary">Barangay Health Center Record & Appointment System</p>
-        <p class="small mb-0 text-muted">Base Camp, Maramag, Bukidnon &copy; 2026</p>
-    </div>
-</footer>
 </body>
 </html>
