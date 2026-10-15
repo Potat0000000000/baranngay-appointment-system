@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     }
 
     try {
-        const { fullName, contactNumber, purok, serviceType, appointmentDate } = req.body;
+        const { full_name, contact_number, email, purok, service_type, appointment_date } = req.body;
 
         // Send data directly to Supabase REST API
         const supabaseUrl = process.env.SUPABASE_URL;
@@ -29,13 +29,19 @@ export default async function handler(req, res) {
                 'Authorization': `Bearer ${supabaseKey}`,
                 'Prefer': 'return=representation'
             },
-            body: JSON.stringify({
-                full_name: fullName,
-                contact_number: contactNumber,
-                purok: purok,
-                service_type: serviceType,
-                appointment_date: appointmentDate
-            })
+           // Inside your export default function handler(req, res) { ... }
+
+
+// When sending data to Supabase REST API:
+body: JSON.stringify({
+    full_name,
+    contact_number,
+    email, // <--- Include email here
+    purok,
+    service_type,
+    appointment_date,
+    status: 'Pending'
+})
         });
 
         if (!response.ok) {

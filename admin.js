@@ -74,6 +74,8 @@ function renderAppointments(data) {
             <td>${index + 1}</td>
             <td class="fw-bold">${escapeHtml(item.full_name)}</td>
             <td><a href="tel:${item.contact_number}" class="text-decoration-none">${escapeHtml(item.contact_number)}</a></td>
+            // Inside renderAppointments table row template:
+            <td><a href="mailto:${escapeHtml(item.email)}" class="text-decoration-none">${escapeHtml(item.email || 'N/A')}</a></td>
             <td>${escapeHtml(item.purok)}</td>
             <td><span class="badge bg-light text-dark border">${escapeHtml(item.service_type)}</span></td>
             <td>${item.appointment_date}</td>
@@ -129,8 +131,9 @@ function applyFilters() {
 
     const filtered = allAppointments.filter(item => {
         const matchesSearch = item.full_name.toLowerCase().includes(searchTerm) ||
-                              item.contact_number.includes(searchTerm) ||
-                              item.purok.toLowerCase().includes(searchTerm);
+                      item.contact_number.includes(searchTerm) ||
+                      (item.email && item.email.toLowerCase().includes(searchTerm)) || // <--- Search by email
+                      item.purok.toLowerCase().includes(searchTerm);
 
         const status = item.status || 'Pending';
         const matchesStatus = (selectedStatus === 'All') || (status === selectedStatus);

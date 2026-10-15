@@ -5,13 +5,14 @@ document.getElementById('appointmentForm').addEventListener('submit', async func
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitting...';
 
-    const formData = {
-        fullName: document.getElementById('fullName').value,
-        contactNumber: document.getElementById('contactNumber').value,
-        purok: document.getElementById('purok').value,
-        serviceType: document.getElementById('serviceType').value,
-        appointmentDate: document.getElementById('appointmentDate').value
-    };
+   const formData = {
+    full_name: document.getElementById('fullName').value,
+    contact_number: document.getElementById('contactNumber').value,
+    email: document.getElementById('email').value, // <--- Add this line
+    purok: document.getElementById('purok').value,
+    service_type: document.getElementById('serviceType').value,
+    appointment_date: document.getElementById('appointmentDate').value
+};
 
     try {
         const response = await fetch('/api/book', {
@@ -34,4 +35,6 @@ document.getElementById('appointmentForm').addEventListener('submit', async func
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit Appointment';
     }
+
+    
 });
