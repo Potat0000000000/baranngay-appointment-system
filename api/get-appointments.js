@@ -32,12 +32,30 @@ export default async function handler(req, res) {
         }
     }
 
-    // PATCH request: Update appointment status
+    // PATCH request: Update an appointment's status and/or its date
     if (req.method === 'PATCH') {
         try {
-            const { id, status } = req.body;
+            const { id, status, appointment_date } = req.body;
 
-            const response = await fetch(`${supabaseUrl}/rest/v1/appointments?id=eq.${id}`, {
+            if (!id) {
+                return res.status(400).json({ success: false, error: 'Missing appointment id.' });
+            }
+
+            // Only send the fields that were provided
+            const changes = {};
+            if (status) changes.status = status;
+            if (appointment_date) {
+                if (!/^\d{4}-\d{2}-\d{2}$/.test(appointment_date)) {
+                    return res.status(400).json({ success: false, error: 'Invalid date format.' });
+                }
+                changes.appointment_date = appointment_date;
+            }
+
+            if (Object.keys(changes).length === 0) {
+                return res.status(400).json({ success: false, error: 'Nothing to update.' });
+            }
+
+            const response = await fetch(`${supabaseUrl}/rest/v1/appointments?id=eq.${encodeURIComponent(id)}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -45,7 +63,7 @@ export default async function handler(req, res) {
                     'Authorization': `Bearer ${supabaseKey}`,
                     'Prefer': 'return=representation'
                 },
-                body: JSON.stringify({ status })
+                body: JSON.stringify(changes)
             });
 
             if (!response.ok) throw new Error(await response.text());

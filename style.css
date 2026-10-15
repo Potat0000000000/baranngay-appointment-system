@@ -371,3 +371,33 @@ a { color: var(--pine); }
 @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; }
 }
+
+/* ---------- Daily capacity and reschedule ---------- */
+.capacity-box {
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    font-size: .92rem;
+    border: 1px solid transparent;
+}
+.capacity-ok { background: var(--pine-tint); color: var(--pine-dark); border-color: #bcd8cb; }
+.capacity-warn { background: var(--amber-tint); color: #7a4f10; border-color: #efd49a; }
+.capacity-full { background: var(--coral-tint); color: #8a2525; border-color: #f0bcbc; }
+.capacity-bar {
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, .12);
+    margin-top: .5rem;
+    overflow: hidden;
+}
+.capacity-bar > span { display: block; height: 100%; background: currentColor; }
+
+.day-full-flag {
+    display: inline-block;
+    margin-top: .2rem;
+    padding: .1rem .5rem;
+    border-radius: 999px;
+    font-size: .75rem;
+    font-weight: 600;
+    background: var(--coral-tint);
+    color: var(--coral);
+}
